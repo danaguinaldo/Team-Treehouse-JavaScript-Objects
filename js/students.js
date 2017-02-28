@@ -1,4 +1,5 @@
 var message = '';
+var foundStudent = false;
 
 function print(message) {
     var outputDiv = document.getElementById('output');
@@ -38,23 +39,30 @@ var students = [
     }
 ];
 
-while (true) {
+while (!foundStudent) {
     var search = prompt("Enter the name of the student: (Type 'quit' to exit)");
-    var studentInfo = '';
 
-    if (search == 'quit') {
+    if (search === null ||search.toLowerCase() == 'quit') {
+        message = 'You quit the system.';
         break;
     }
     
     for (var i in students) {
-        if (students[i][0] == search) {
-            studentInfo = students[i];
-        }
-        else {
-
+        if (students[i]['Student'] == search) {
+            for (var o in students[i]) {
+                message += '<p>' + o + ": " + students[i][o] + '<p>';
+            }
+            foundStudent = true;
+            break;
         }
     }
+
+    if (message === '') {
+        message = '<p> Student is not in the system <p>';
+        break;
+    }
 }
+
 
 // for (var i in students) {
 //     for (var key in students[i]) {
@@ -63,4 +71,4 @@ while (true) {
 //     message += '<br>';
 // }
 
-// print(message);
+print(message);
